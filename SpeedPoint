@@ -1,0 +1,46 @@
+#define FIRST_SEGMENT_PIN   2
+#define SEGMENT_COUNT       7
+#include <Adafruit_LiquidCrystal.h>
+
+int seconds = 0;
+
+Adafruit_LiquidCrystal lcd_1(0);
+
+
+ 
+void setup()
+{
+
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(9, INPUT);
+}
+ 
+void loop()
+{
+  int number = 0;
+  int oldnumber = 0;
+  int nwunumber = 0;
+  int randomNumber = random(1, 5);
+ 
+  digitalWrite(7,1);
+  digitalWrite(6,0);
+  delay(randomNumber);
+  digitalWrite(7,0);
+  digitalWrite(6,1);
+  oldnumber = (millis() / 1);
+  while(!digitalRead(9)==1){
+   delay(10);
+  }
+  nwunumber = (millis() / 1);
+  digitalWrite(7,0);
+  digitalWrite(6,0);
+   	lcd_1.begin(16, 2);
+  	lcd_1.print("msc");
+    number = nwunumber - oldnumber;
+	lcd_1.setCursor(0, 1);
+	lcd_1.print(number);
+ 	delay(30000);
+
+
+}
