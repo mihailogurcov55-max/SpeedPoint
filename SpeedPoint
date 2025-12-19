@@ -1,0 +1,54 @@
+#define FIRST_SEGMENT_PIN   2
+#define SEGMENT_COUNT       7
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+int seconds = 0;
+
+LiquidCrystal_I2C lcd_1(0x27, 16,2);
+
+
+ 
+void setup()
+{
+
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(9, INPUT);
+}
+ 
+void loop()
+{
+  lcd_1.backlight();
+  lcd_1.init();
+  int number = 0;
+  int oldnumber = 0;
+  int nwunumber = 0;
+  int v;
+  bool flag = false;
+  int randomNumber = random(10, 50);
+ randomNumber = randomNumber * 100;
+  digitalWrite(7,1);
+  digitalWrite(6,0);
+  delay(randomNumber);
+  digitalWrite(7,0);
+  digitalWrite(6,1);
+  oldnumber = (millis() / 1);
+  while(!digitalRead(9)==1){
+   delay(10);
+  }
+  nwunumber = (millis() / 1);
+  digitalWrite(7,0);
+  digitalWrite(6,0);
+   	lcd_1.setCursor(4, 1);
+  	lcd_1.print(":msc");
+    number = nwunumber - oldnumber;
+	lcd_1.setCursor(0, 1);
+	lcd_1.print(number);
+  delay(500);
+ 	while(!digitalRead(9)==1){
+   
+  }
+
+
+}
